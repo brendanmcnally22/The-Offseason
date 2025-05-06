@@ -10,7 +10,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         Movement player = collision.GetComponent<Movement>();
         if (player != null )
         {
-            player.health = damageamount;
+            player.health -= damageamount;
         }
 
     }
