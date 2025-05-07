@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
     private bool isGrounded;
     private bool isDashing = false;
     private float dashTime;
+    private float lastMoveDirection = 1f;
+
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -48,6 +50,7 @@ public class Movement : MonoBehaviour
     }
     void MovementFunction()
     {
+        if (isDashing) return; // Skip movement input while dashing 
 
         float moveX = 0f;
 
@@ -62,6 +65,7 @@ public class Movement : MonoBehaviour
 
         if (moveX != 0)
         {
+            lastMoveDirection = moveX; // Store last direction for the dash 
             transform.localScale = new Vector3(Mathf.Sign(moveX), 1f, 1f);
         }
 
@@ -110,8 +114,8 @@ public class Movement : MonoBehaviour
             isDashing = true;
             dashTime = dashDuration;
 
-            float direction = Input.GetKey(KeyCode.A) ? -1 : 1;
-            rb.linearVelocity = new Vector2(direction * dashSpeed, 0f);
+            rb.linearVelocity = new Vector2(lastMoveDirection * dashSpeed, 0f);
+        animator.SetTrigger("Dash");
         }
 
         void Jump()
