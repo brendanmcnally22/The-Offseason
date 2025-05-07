@@ -43,6 +43,7 @@ public class Movement : MonoBehaviour
         bool isWalking = Mathf.Abs(rb.linearVelocity.x) > 0.1f; // check if moving happens, if it does then trigger walking animation (basically is the velocity more than 0.1f if so walk)
 
         animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isGrounded", isGrounded);
 
     }
     void MovementFunction()
